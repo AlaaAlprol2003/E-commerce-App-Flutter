@@ -10,16 +10,20 @@ class CustomTextFormField extends StatelessWidget {
     this.radius = 15,
     this.keyboard = TextInputType.text,
     this.isSecure = false,
-    this.suffIcon,
+    this.suffIcon, required this.controller,  this.validator,
   });
   final String hintText;
   final TextInputType keyboard;
   final double radius;
   final bool isSecure;
   final Widget? suffIcon;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: validator,
       keyboardType: keyboard,
       obscureText: isSecure,
       cursorColor: ColorsManager.darkBlue,

@@ -26,7 +26,7 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: bgColor,
         padding: REdgeInsets.symmetric(vertical: padding),

@@ -3,7 +3,7 @@
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart';
 import 'package:e_commerce/features/auth/presentation/screens/register_screen.dart';
-import 'package:e_commerce/features/main_layout/main_layout.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/main_layout.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class GetRoute {

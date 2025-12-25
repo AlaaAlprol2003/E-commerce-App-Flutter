@@ -3,6 +3,7 @@ abstract class ApiConstatnt {
   static const String registerEndPoint = "auth/signup";
   static const String loginEndPoint = "auth/signin";
   static const String categoriesEndPoint = "categories";
+  static const String brandsEndPoint = "brands";
 }
 
 abstract class LocalContstant{

@@ -4,16 +4,18 @@ import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
-import 'package:e_commerce/features/main_layout/presentation/widgets/category_item.dart';
-import 'package:e_commerce/features/main_layout/presentation/widgets/custom_add_widget.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/brand_item.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/category_item.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/custom_add_widget.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/custom_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeTap extends StatefulWidget {
- const HomeTap({super.key});
+  const HomeTap({super.key});
 
   @override
   State<HomeTap> createState() => _HomeTapState();
@@ -75,33 +77,11 @@ class _HomeTapState extends State<HomeTap> {
                 },
               ),
               items: offers
-                  .map(
-                    (offer) => CustomAddWidget(selectedIndex: selectedIndex,)
-                  )
+                  .map((offer) => CustomAddWidget(selectedIndex: selectedIndex))
                   .toList(),
             ),
             SizedBox(height: 24.h),
-            Row(
-              children: [
-                Text(
-                  "Categories",
-                  style: GoogleFonts.poppins(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: ColorsManager.darkBlue,
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  "view all",
-                  style: GoogleFonts.poppins(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: ColorsManager.darkBlue,
-                  ),
-                ),
-              ],
-            ),
+            CustomSectionWidget(sectionName: "Categories"),
             SizedBox(height: 16.h),
             BlocBuilder<CategoriesCubit, CategoriesState>(
               builder: (context, state) {
@@ -120,7 +100,7 @@ class _HomeTapState extends State<HomeTap> {
                     height: 350.h,
                     child: GridView.builder(
                       scrollDirection: Axis.horizontal,
-                      
+
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
 
@@ -137,7 +117,39 @@ class _HomeTapState extends State<HomeTap> {
                 return SizedBox();
               },
             ),
-            
+
+            CustomSectionWidget(sectionName: "Brands"),
+            BlocBuilder<BrandsCubit, BrandsState>(
+              builder: (context, state) {
+                if (state is BrandsLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is BrandsFailure) {
+                  return Center(
+                    child: Text(
+                      state.message,
+                      style: TextStyle(color: ColorsManager.black),
+                    ),
+                  );
+                } else if (state is BrandsSuccess) {
+                  var brands = state.brands;
+                  return SizedBox(
+                    height: 350.h,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: brands.length,
+                      itemBuilder: (context, index) =>
+                          BrandItem(brand: brands[index]),
+                    ),
+                  );
+                }
+                return SizedBox();
+              },
+            ),
           ],
         ),
       ),

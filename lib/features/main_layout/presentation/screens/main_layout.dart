@@ -1,9 +1,13 @@
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories_tab.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/brands_repository_impl.dart/brands_repository_impl.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/categories_rpositories_imp.dart/categories_repository_imp.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/brands_api_remote_data_source.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/categories_api_remote_data_source.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/use_cases/brands_use_case.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/use_cases/get_categories_use_case.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/home_tap.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/profile_tab.dart';
@@ -23,15 +27,37 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs = [
-      BlocProvider<CategoriesCubit>(
-        create: (context) => CategoriesCubit(
-          getCategoriesUseCase: GetCategoriesUseCase(
-            categoriesRepository: CategoriesRepositoryImp(
-              remoteDataSource: CategoriesApiRemoteDataSource(),
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<CategoriesCubit>(
+            create: (context) => CategoriesCubit(
+              getCategoriesUseCase: GetCategoriesUseCase(
+                categoriesRepository: CategoriesRepositoryImp(
+                  remoteDataSource: CategoriesApiRemoteDataSource(),
+                ),
+              ),
             ),
           ),
+          BlocProvider<BrandsCubit>(
+            create: (context) => BrandsCubit(
+              brandsUseCase: GetBrandsUseCase(
+                brandsRepository: BrandsRepositoryImpl(
+                  brandsRemoteDataSource: BrandsApiRemoteDataSource(),
+                ),
+              ),
+            ),
+          ),
+        ],
+        child: BlocProvider<CategoriesCubit>(
+          create: (context) => CategoriesCubit(
+            getCategoriesUseCase: GetCategoriesUseCase(
+              categoriesRepository: CategoriesRepositoryImp(
+                remoteDataSource: CategoriesApiRemoteDataSource(),
+              ),
+            ),
+          ),
+          child: HomeTap(),
         ),
-        child: HomeTap(),
       ),
       CategoriesTab(),
       FavoriteTab(),

@@ -3,7 +3,7 @@
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
-import 'package:e_commerce/features/main_layout/presentation/widgets/custom_dot_widget.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/custom_dot_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

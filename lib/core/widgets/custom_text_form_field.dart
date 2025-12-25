@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboard = TextInputType.text,
     this.isSecure = false,
     this.suffIcon, required this.controller,  this.validator,
+    this.borderColor = ColorsManager.white, this.preIcon
   });
   final String hintText;
   final TextInputType keyboard;
@@ -19,6 +20,8 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffIcon;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final Color? borderColor;
+  final Widget? preIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -36,16 +39,18 @@ class CustomTextFormField extends StatelessWidget {
           color: ColorsManager.black.withValues(alpha: .7),
         ),
         suffixIcon: suffIcon,
+        prefixIcon: preIcon,
+        prefixIconColor: ColorsManager.blue,
         suffixIconColor: ColorsManager.grey,
         filled: true,
         fillColor: ColorsManager.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius.r),
-          borderSide: BorderSide(color: ColorsManager.white, width: 1.w),
+          borderSide: BorderSide(color: borderColor ?? ColorsManager.white, width: 1.w),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius.r),
-          borderSide: BorderSide(color: ColorsManager.white, width: 1.w),
+          borderSide: BorderSide(color: borderColor ?? ColorsManager.white, width: 1.w),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius.r),

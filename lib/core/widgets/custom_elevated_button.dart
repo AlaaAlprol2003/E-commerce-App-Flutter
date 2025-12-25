@@ -12,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.radius,
     required this.padding, required this.bgColor, this.icon,
 
-    this.iconAlignment = IconAlignment.start, required this.onPressed
+    this.iconAlignment = IconAlignment.start, required this.onPressed, this.hrPadding
   });
   final String labelText;
   final Color textColor;
@@ -23,13 +23,14 @@ class CustomElevatedButton extends StatelessWidget {
   final Widget? icon;
   final IconAlignment? iconAlignment;
   final VoidCallback onPressed;
+  final double? hrPadding;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: bgColor,
-        padding: REdgeInsets.symmetric(vertical: padding),
+        padding: REdgeInsets.symmetric(vertical: padding,horizontal: hrPadding ?? 0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius.r),
         ),

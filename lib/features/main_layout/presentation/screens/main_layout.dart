@@ -1,9 +1,14 @@
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories_tab.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab.dart';
-import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home_tap.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/categories_rpositories_imp.dart/categories_repository_imp.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/categories_api_remote_data_source.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/use_cases/get_categories_use_case.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/home_tap.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -18,15 +23,26 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs = [
-      HomeTap(),
+      BlocProvider<CategoriesCubit>(
+        create: (context) => CategoriesCubit(
+          getCategoriesUseCase: GetCategoriesUseCase(
+            categoriesRepository: CategoriesRepositoryImp(
+              remoteDataSource: CategoriesApiRemoteDataSource(),
+            ),
+          ),
+        ),
+        child: HomeTap(),
+      ),
       CategoriesTab(),
       FavoriteTab(),
       ProfileTab(),
     ];
-    return Scaffold(
-      backgroundColor: ColorsManager.white,
-      body: tabs[selectedIndex],
-      bottomNavigationBar: buildNavBar(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorsManager.white,
+        body: tabs[selectedIndex],
+        bottomNavigationBar: buildNavBar(),
+      ),
     );
   }
 

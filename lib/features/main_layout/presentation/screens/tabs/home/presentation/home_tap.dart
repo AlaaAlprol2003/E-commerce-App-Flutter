@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
+import 'package:e_commerce/core/widgets/custom_search_section.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
@@ -22,8 +23,6 @@ class HomeTap extends StatefulWidget {
 }
 
 class _HomeTapState extends State<HomeTap> {
-  final TextEditingController searchController = TextEditingController();
-
   int selectedIndex = 0;
 
   List<String> offers = [
@@ -42,27 +41,7 @@ class _HomeTapState extends State<HomeTap> {
           children: [
             Image.asset(ImageAssets.route),
             SizedBox(height: 18.h),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    hintText: "what do you search for?",
-                    controller: searchController,
-                    radius: 50,
-                    borderColor: ColorsManager.blue,
-                    preIcon: Icon(Icons.search, size: 50.h),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: ColorsManager.blue,
-                    size: 50.h,
-                  ),
-                ),
-              ],
-            ),
+            CustomSearchSection(onPressed: () {}),
             SizedBox(height: 16.h),
             CarouselSlider(
               options: CarouselOptions(

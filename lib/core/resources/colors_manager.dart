@@ -7,5 +7,6 @@ abstract class ColorsManager {
   static const Color lightBlue = Color(0xFF004182);
   static const Color black = Color(0xFF000000);
   static const Color grey = Color(0xFF808080);
+  static const Color offwhite = Color(0xFFEDF1F5);
   
 }

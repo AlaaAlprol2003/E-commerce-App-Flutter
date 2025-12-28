@@ -21,24 +21,12 @@ class BrandItem extends StatelessWidget {
         
         borderRadius: BorderRadius.circular(80.r),
       ),
-      child: Stack(
-        children: [
-          CachedNetworkImage(
-              imageUrl: brand.image,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              fit: BoxFit.cover,
-            ),
-          Text(
-            brand.name,
-            style: GoogleFonts.poppins(
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w600,
-              color: ColorsManager.white,
-            ),
-          ),
-        ],
-      ),
+      child: CachedNetworkImage(
+          imageUrl: brand.image,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+          fit: BoxFit.cover,
+        ),
     );
   }
 }

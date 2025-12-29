@@ -1,10 +1,14 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/cubit/sub_categories_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/widgets/sub_category_item.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesTab extends StatefulWidget {
@@ -15,27 +19,15 @@ class CategoriesTab extends StatefulWidget {
 }
 
 class _CategoriesTabState extends State<CategoriesTab> {
-  int selectedCategory = 0;
-  List<String> categories = [
-    "Alaa",
-    "Ahmed",
-    "Fathi",
-    "Alprol",
-    "Mohamed",
-    "Mustafa",
-    "Mustafa",
-    "Mustafa",
-    "Mustafa",
-    "Mustafa",
-    "Mustafa",
-    "Mustafa",
-  ];
+  int selectedCategory = 2;
+  String categoryImage =
+      "https://ecommerce.routemisr.com/Route-Academy-categories/1681511818071.jpeg";
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: REdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+        padding: REdgeInsets.symmetric(horizontal: 8.0, vertical: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,78 +39,131 @@ class _CategoriesTabState extends State<CategoriesTab> {
               height: 724.h,
               child: Row(
                 children: [
-                  Container(
-                    width: 160.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.r),
-                        bottomLeft: Radius.circular(16.r),
-                      ),
-                      border: Border(
-                        left: BorderSide(color: ColorsManager.darkBlue),
-                      ),
-                      color: ColorsManager.blue.withValues(alpha: .5),
-                    ),
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          selectedCategory = index;
-                          setState(() {});
-                        },
-                        child: Container(
-                          padding: REdgeInsets.symmetric(
-                            vertical: 40,
-                            horizontal: 20,
-                          ),
-                          color: selectedCategory == index
-                              ? ColorsManager.offwhite
-                              : Colors.transparent,
+                  BlocBuilder<CategoriesCubit, CategoriesState>(
+                    builder: (context, state) {
+                      if (state is CategoriesLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is CategoriesError) {
+                        return Center(
                           child: Text(
-                            categories[index],
-                            textAlign: TextAlign.center,
+                            state.message,
+                            style: TextStyle(color: ColorsManager.black),
                           ),
-                        ),
-                      ),
-
-                      itemCount: categories.length,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: REdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 150.h,
-
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(ImageAssets.offer),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(16.r),
+                        );
+                      } else if (state is CategoriesSuccess) {
+                        var categoriesData = state.categories;
+                        return Container(
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.r),
+                              bottomLeft: Radius.circular(16.r),
                             ),
+                            border: Border(
+                              left: BorderSide(color: ColorsManager.darkBlue),
+                            ),
+                            color: ColorsManager.blue.withValues(alpha: .5),
                           ),
-                          SizedBox(height: 16.h),
-                          Expanded(
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 10.h,
-                                    mainAxisSpacing: 30.w,
+                          child: ListView.builder(
+                            itemCount: categoriesData.length,
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                selectedCategory = index;
+                                categoryImage = categoriesData[index].image;
+                                context
+                                    .read<SubCategoriesCubit>()
+                                    .getSubCategories(categoriesData[index].id);
+                                setState(() {});
+                              },
+                              child: Container(
+                                padding: REdgeInsets.symmetric(
+                                  vertical: 40,
+                                  horizontal: 20,
+                                ),
+                                color: selectedCategory == index
+                                    ? ColorsManager.offwhite
+                                    : Colors.transparent,
+                                child: Text(
+                                  categoriesData[index].name,
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorsManager.darkBlue,
                                   ),
-                              itemBuilder: (context, index) =>
-                                  SubCategoryItem(),
-                              itemCount: 8,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        );
+                      }
+                      return SizedBox();
+                    },
+                  ),
+                  BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+                    builder: (context, state) {
+                      if (state is SubCategoriesLoading) {
+                        return Expanded(
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      } else if (state is SubCategoriesfailure) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(color: ColorsManager.black),
+                          ),
+                        );
+                      } else if (state is SubCategoriesSuccess) {
+                        var subCategories = state.subCategories;
+
+                        return Expanded(
+                          child: Padding(
+                            padding: REdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200.h,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    child: CachedNetworkImage(
+                                      imageUrl: categoryImage,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+
+                                SizedBox(height: 16.h),
+                                Expanded(
+                                  child: GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10.w,
+                                          mainAxisSpacing: 20.h,
+                                        ),
+                                    itemBuilder: (context, index) =>
+                                        SubCategoryItem(
+                                          subcategoryEntity:
+                                              subCategories[index],
+                                        ),
+                                    itemCount: subCategories.length,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      return SizedBox();
+                    },
                   ),
                 ],
               ),

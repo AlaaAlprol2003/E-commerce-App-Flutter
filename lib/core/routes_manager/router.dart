@@ -4,7 +4,13 @@ import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart';
 import 'package:e_commerce/features/auth/presentation/screens/register_screen.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/main_layout.dart';
+import 'package:e_commerce/features/products/data/data_source/products_api_remote_data_source.dart';
+import 'package:e_commerce/features/products/data/repository_impl/products_repository_impl.dart';
+import 'package:e_commerce/features/products/domain/use_cases/get_products_use_case.dart';
+import 'package:e_commerce/features/products/presentation/cubit/products_cubit.dart';
+import 'package:e_commerce/features/products/presentation/product_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class GetRoute {
   static Route? router(RouteSettings settings) {
@@ -20,6 +26,15 @@ abstract class GetRoute {
       case Routes.mainLayout:
         {
           return CupertinoPageRoute(builder: (context) => MainLayout());
+        }
+      case Routes.productScreen:
+        {
+          String categoryID = settings.arguments as String;
+          return CupertinoPageRoute(
+            builder: (context) => BlocProvider<ProductsCubit>(
+              create: (context)=> ProductsCubit(getProductsUseCase: GetProductsUseCase(productsRepository: ProductsRepositoryImpl(remoteDataSource: ProductsApiRemoteDataSource())))..getProducts(categoryID),
+              child: ProductScreen()),
+          );
         }
     }
   }

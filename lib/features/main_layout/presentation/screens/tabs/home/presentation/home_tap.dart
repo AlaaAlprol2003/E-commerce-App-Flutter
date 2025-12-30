@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
+import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
@@ -89,7 +90,11 @@ class _HomeTapState extends State<HomeTap> {
                       ),
                       itemCount: categories.length,
                       itemBuilder: (context, index) =>
-                          CategoryItem(category: categories[index]),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, Routes.productScreen,arguments: categories[index].id);
+                            },
+                            child: CategoryItem(category: categories[index])),
                     ),
                   );
                 }

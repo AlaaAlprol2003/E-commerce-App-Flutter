@@ -5,6 +5,7 @@ abstract class ApiConstatnt {
   static const String categoriesEndPoint = "categories";
   static const String brandsEndPoint = "brands";
   static const String subCategoriesEndPoint = "subcategories";
+  static const String productsEndPoint = "products";
 }
 
 abstract class LocalContstant{

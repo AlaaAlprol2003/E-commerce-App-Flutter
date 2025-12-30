@@ -19,13 +19,14 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      sId: json['_id'],
-      name: json['name'],
-      slug: json['slug'],
-      image: json['image'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      sId: json['_id'] ?? '',
+      name: json['name'] ?? '',
+      slug: json['slug'] ?? '',
+      image: json['image'] ?? '',
+      createdAt: json['createdAt'] ?? '',
+      updatedAt: json['updatedAt'] ?? '',
     );
   }
-  CategoryEntity toCategoryEntity()=> CategoryEntity(id: sId,name:name,image: image );
+  CategoryEntity toCategoryEntity() =>
+      CategoryEntity(id: sId, name: name, image: image);
 }

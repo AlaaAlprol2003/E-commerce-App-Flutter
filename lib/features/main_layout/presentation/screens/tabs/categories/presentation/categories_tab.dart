@@ -21,7 +21,7 @@ class CategoriesTab extends StatefulWidget {
 class _CategoriesTabState extends State<CategoriesTab> {
   int selectedCategory = 2;
   String categoryImage =
-      "https://ecommerce.routemisr.com/Route-Academy-categories/1681511818071.jpeg";
+      "https://i.pinimg.com/736x/23/4c/78/234c78d367f937a8a1c8c5dde3603d00.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
                                 selectedCategory = index;
-                                categoryImage = categoriesData[index].image;
+                                categoryImage =index == 2 ? "https://i.pinimg.com/736x/23/4c/78/234c78d367f937a8a1c8c5dde3603d00.jpg": categoriesData[index].image;
                                 context
                                     .read<SubCategoriesCubit>()
                                     .getSubCategories(categoriesData[index].id);
@@ -135,7 +135,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                                           CircularProgressIndicator(),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),

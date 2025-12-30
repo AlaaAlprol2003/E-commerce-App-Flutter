@@ -4,6 +4,8 @@ import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart';
 import 'package:e_commerce/features/auth/presentation/screens/register_screen.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/main_layout.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/models/category.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/products/data/data_source/products_api_remote_data_source.dart';
 import 'package:e_commerce/features/products/data/repository_impl/products_repository_impl.dart';
 import 'package:e_commerce/features/products/domain/use_cases/get_products_use_case.dart';
@@ -29,11 +31,11 @@ abstract class GetRoute {
         }
       case Routes.productScreen:
         {
-          String categoryID = settings.arguments as String;
+          CategoryEntity category = settings.arguments as CategoryEntity;
           return CupertinoPageRoute(
             builder: (context) => BlocProvider<ProductsCubit>(
-              create: (context)=> ProductsCubit(getProductsUseCase: GetProductsUseCase(productsRepository: ProductsRepositoryImpl(remoteDataSource: ProductsApiRemoteDataSource())))..getProducts(categoryID),
-              child: ProductScreen()),
+              create: (context)=> ProductsCubit(getProductsUseCase: GetProductsUseCase(productsRepository: ProductsRepositoryImpl(remoteDataSource: ProductsApiRemoteDataSource())))..getProducts(category.id),
+              child: ProductScreen(categoryEntity: category,)),
           );
         }
     }

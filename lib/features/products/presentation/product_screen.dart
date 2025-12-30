@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/resources/colors_manager.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/products/presentation/cubit/products_cubit.dart';
 import 'package:e_commerce/features/products/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductScreen extends StatelessWidget {       
-  const ProductScreen({super.key,});
+  const ProductScreen({super.key, required this.categoryEntity,});
   
-
+  final CategoryEntity categoryEntity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsManager.white,
       appBar: AppBar(
         backgroundColor: ColorsManager.lightBlue,
-        title:Text("Products") ,
+        title:Text(categoryEntity.name) ,
         centerTitle: true,
         titleTextStyle: GoogleFonts.poppins(fontSize: 20.sp,fontWeight: FontWeight.w600,color: ColorsManager.offwhite),
         leading: IconButton(

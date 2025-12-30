@@ -92,9 +92,9 @@ class _HomeTapState extends State<HomeTap> {
                       itemBuilder: (context, index) =>
                           InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, Routes.productScreen,arguments: categories[index].id);
+                              Navigator.pushNamed(context, Routes.productScreen,arguments: categories[index]);
                             },
-                            child: CategoryItem(category: categories[index])),
+                            child: CategoryItem(category: categories[index],index: index,)),
                     ),
                   );
                 }

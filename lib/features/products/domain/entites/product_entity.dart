@@ -7,6 +7,8 @@ class ProductEntity {
   final num quantity;
   final num price;
   final String imageCover;
+  final num? ratingsQuantity;
+  final num?ratingsAverage;
   final num? priceAfterDiscount; // تأكد أنها nullable
   final List<dynamic>? availableColors; // تأكد أنها dynamic
 
@@ -20,6 +22,6 @@ class ProductEntity {
     required this.price,
     required this.imageCover,
     this.priceAfterDiscount,
-    this.availableColors,
+    this.availableColors,  this.ratingsQuantity,  this.ratingsAverage,
   });
 }

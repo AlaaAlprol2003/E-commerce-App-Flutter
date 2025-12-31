@@ -8,7 +8,7 @@ class Product {
   final num? sold;
   final List<String> images;
   final List<SubCategory> subcategory;
-  final num ratingsQuantity;
+  final num? ratingsQuantity;
   final String sId;
   final String title;
   final String slug;
@@ -18,7 +18,7 @@ class Product {
   final String imageCover;
   final Category category;
   final Category brand;
-  final num ratingsAverage;
+  final num? ratingsAverage;
   final String createdAt;
   final String updatedAt;
   final String id;
@@ -63,7 +63,7 @@ class Product {
               .toList() ??
           [],
 
-      ratingsQuantity: json['ratingsQuantity'] ?? 0,
+      ratingsQuantity: (json['ratingsQuantity'] ?? 0) as num,
       sId: json['_id'] ?? '',
       title: json['title'] ?? '',
       slug: json['slug'] ?? '',
@@ -73,7 +73,7 @@ class Product {
       imageCover: json['imageCover'] ?? '',
       category: Category.fromJson(json['category']),
       brand: Category.fromJson(json['brand']),
-      ratingsAverage: json['ratingsAverage'] ?? 0,
+      ratingsAverage: (json['ratingsAverage'] ?? 0) as num,
       createdAt: json['createdAt'] ?? '',
       updatedAt: json['updatedAt'] ?? '',
       id: json['id'] ?? '',
@@ -97,5 +97,7 @@ class Product {
         : 'https://via.placeholder.com/150',
     priceAfterDiscount: priceAfterDiscount,
     availableColors: availableColors,
+    ratingsAverage: ratingsAverage,
+    ratingsQuantity: ratingsQuantity,
   );
 }

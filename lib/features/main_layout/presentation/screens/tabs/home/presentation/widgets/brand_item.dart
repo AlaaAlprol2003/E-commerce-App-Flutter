@@ -5,7 +5,6 @@ import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/brand_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class BrandItem extends StatelessWidget {
    BrandItem({super.key, required this.brand});

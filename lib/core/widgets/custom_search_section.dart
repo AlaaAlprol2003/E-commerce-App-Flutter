@@ -1,12 +1,13 @@
 import 'package:e_commerce/core/resources/colors_manager.dart';
+import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSearchSection extends StatelessWidget {
-  CustomSearchSection({super.key, required this.onPressed});
+  CustomSearchSection({super.key});
   final TextEditingController searchController = TextEditingController();
-  final VoidCallback onPressed;
+  
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,7 +22,9 @@ class CustomSearchSection extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed:onPressed,
+          onPressed:(){
+            Navigator.pushNamed(context, Routes.cartScreen);
+          },
           icon: Icon(
             Icons.shopping_cart_outlined,
             color: ColorsManager.blue,

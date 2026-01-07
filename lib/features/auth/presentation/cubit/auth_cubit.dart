@@ -3,7 +3,8 @@ import 'package:e_commerce/features/auth/data/models/register_request.dart';
 import 'package:e_commerce/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:e_commerce/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:injectable/injectable.dart';
+@singleton
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit({required this.registerUseCase, required this.loginUseCase})
     : super(AuthInit());

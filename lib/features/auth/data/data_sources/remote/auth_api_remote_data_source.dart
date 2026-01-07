@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:e_commerce/core/errors/app_exceptions.dart';
 import 'package:e_commerce/core/resources/constatnt_manager.dart';
-import 'package:e_commerce/features/auth/data/data_sources/local/auth_local_data_source.dart';
 import 'package:e_commerce/features/auth/data/data_sources/remote/auth_remote_data_source.dart';
 import 'package:e_commerce/features/auth/data/models/login_request.dart';
 import 'package:e_commerce/features/auth/data/models/login_response.dart';
 import 'package:e_commerce/features/auth/data/models/register_request.dart';
 import 'package:e_commerce/features/auth/data/models/register_response.dart';
-
+import 'package:injectable/injectable.dart';
+@Singleton(as:AuthRemoteDataSource )
 class AuthApiRemoteDataSource implements AuthRemoteDataSource {
   Dio dio = Dio(BaseOptions(baseUrl: ApiConstatnt.baseUrl));
   @override

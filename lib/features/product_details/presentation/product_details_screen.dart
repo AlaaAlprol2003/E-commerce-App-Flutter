@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
+import 'package:e_commerce/core/resources/ui_utils.dart';
+import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/carousel_item.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/custom_app_bar.dart';
@@ -10,6 +13,7 @@ import 'package:e_commerce/features/product_details/presentation/widgets/size_wi
 import 'package:e_commerce/features/product_details/provider/product_details_provider.dart';
 import 'package:e_commerce/features/products/domain/entites/product_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +26,7 @@ class ProductDetailsScreen extends StatelessWidget {
     var provider = Provider.of<ProductDetailsProvider>(context);
     return Scaffold(
       backgroundColor: ColorsManager.white,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(titleText: "Product Details", showCartIcon: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -86,9 +90,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             horizontal: 10,
                             vertical: 10,
                           ),
-                          child: CustomTextWidget(
-                            text: "${product.sold} sold",
-                          ),
+                          child: CustomTextWidget(text: "${product.sold} sold"),
                         ),
                       ),
                       SizedBox(width: 15.w),
@@ -130,7 +132,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ...List.generate(
                         6,
                         (index) => GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             provider.assignSelectedSize(index);
                           },
                           child: SizeWidget(
@@ -183,18 +185,52 @@ class ProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                       Spacer(),
-                      CustomElevatedButton(
-                        labelText: "Add to cart",
-                        textColor: ColorsManager.white,
-                        radius: 40,
-                        padding: 15,
-                        bgColor: ColorsManager.blue,
-                        hrPadding: 20,
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add_shopping_cart_outlined,
-                          color: ColorsManager.white,
-                          size: 30,
+                      BlocListener<CartCubit, CartState>(
+                        listener: (context, state) {
+                          if (state is AddToCartLoading) {
+                            UiUtils.showLoadingDialog(context);
+                          } else if (state is AddToCartFailure) {
+                            UiUtils.hideLoadingDialog(context);
+                            UiUtils.showToastNotificationBar(
+                              context,
+                              state.message,
+                              Colors.white,
+                              Colors.red,
+                              Icons.error,
+                            );
+                          } else if (state is AddToCartSuccess) {
+                            UiUtils.hideLoadingDialog(context);
+                            UiUtils.showToastNotificationBar(
+                              context,
+                              "Product Added to Cart Successfully",
+                              Colors.white,
+                              Colors.green,
+                              Icons.check_circle,
+                            );
+                            Navigator.pushNamed(
+                              context,
+                              Routes.cartScreen,
+                              
+                            );
+                          }
+                        },
+                        child: CustomElevatedButton(
+                          labelText: "Add to cart",
+                          textColor: ColorsManager.white,
+                          radius: 40,
+                          padding: 15,
+                          bgColor: ColorsManager.blue,
+                          hrPadding: 20,
+                          onPressed: () {
+                            BlocProvider.of<CartCubit>(
+                              context,
+                            ).addToCart(productID: product.sId);
+                          },
+                          icon: Icon(
+                            Icons.add_shopping_cart_outlined,
+                            color: ColorsManager.white,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],
@@ -208,3 +244,4 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 }
+

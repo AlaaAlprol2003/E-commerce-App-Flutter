@@ -33,7 +33,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
           children: [
             Image.asset(ImageAssets.route),
             SizedBox(height: 18.h),
-            CustomSearchSection(onPressed: () {}),
+            CustomSearchSection(),
             SizedBox(height: 16.h),
             SizedBox(
               height: 724.h,

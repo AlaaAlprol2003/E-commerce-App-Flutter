@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/di/service_locator.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/data/data_sources/sub_categories_api_remote_data_source.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/data/repository_impl/sub_category_repository_impl.dart';
@@ -33,55 +34,20 @@ class _MainLayoutState extends State<MainLayout> {
     List<Widget> tabs = [
       MultiBlocProvider(
         providers: [
-          BlocProvider<CategoriesCubit>(
-            create: (context) => CategoriesCubit(
-              getCategoriesUseCase: GetCategoriesUseCase(
-                categoriesRepository: CategoriesRepositoryImp(
-                  remoteDataSource: CategoriesApiRemoteDataSource(),
-                ),
-              ),
-            ),
+          BlocProvider(
+            create: (context) => serviceLocator.get<CategoriesCubit>(),
           ),
-          BlocProvider<BrandsCubit>(
-            create: (context) => BrandsCubit(
-              brandsUseCase: GetBrandsUseCase(
-                brandsRepository: BrandsRepositoryImpl(
-                  brandsRemoteDataSource: BrandsApiRemoteDataSource(),
-                ),
-              ),
-            ),
-          ),
+          BlocProvider(create: (context) => serviceLocator.get<BrandsCubit>()),
         ],
-        child: BlocProvider<CategoriesCubit>(
-          create: (context) => CategoriesCubit(
-            getCategoriesUseCase: GetCategoriesUseCase(
-              categoriesRepository: CategoriesRepositoryImp(
-                remoteDataSource: CategoriesApiRemoteDataSource(),
-              ),
-            ),
-          ),
-          child: HomeTap(),
-        ),
+        child: HomeTap(),
       ),
       MultiBlocProvider(
         providers: [
-          BlocProvider<CategoriesCubit>(
-            create: (context) => CategoriesCubit(
-              getCategoriesUseCase: GetCategoriesUseCase(
-                categoriesRepository: CategoriesRepositoryImp(
-                  remoteDataSource: CategoriesApiRemoteDataSource(),
-                ),
-              ),
-            ),
+          BlocProvider(
+            create: (context) => serviceLocator.get<CategoriesCubit>(),
           ),
-          BlocProvider<SubCategoriesCubit>(
-            create: (context) => SubCategoriesCubit(
-              getSubCategoriesUseCase: GetSubCategoriesUseCase(
-                subCategoryRepository: SubCategoryRepositoryImpl(
-                  remoteDataSource: SubCategoriesApiRemoteDataSource(),
-                ),
-              ),
-            ),
+          BlocProvider(
+            create: (context) => serviceLocator.get<SubCategoriesCubit>(),
           ),
         ],
         child: CategoriesTab(),

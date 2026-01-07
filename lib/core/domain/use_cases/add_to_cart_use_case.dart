@@ -1,0 +1,12 @@
+import 'package:dart_either/dart_either.dart';
+import 'package:e_commerce/core/domain/repositories/cart_repository.dart';
+import 'package:e_commerce/core/errors/failure.dart';
+import 'package:injectable/injectable.dart';
+@lazySingleton
+class AddToCartUseCase {
+  CartRepository cartRepository;
+  AddToCartUseCase({required this.cartRepository});
+  Future<Either<Failure, void>> call({required String productID}) {
+    return cartRepository.addToCart(productID: productID);
+  }
+}

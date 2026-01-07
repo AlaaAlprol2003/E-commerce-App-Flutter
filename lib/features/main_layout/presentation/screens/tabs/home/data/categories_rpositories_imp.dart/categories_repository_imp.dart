@@ -4,7 +4,8 @@ import 'package:e_commerce/core/errors/failure.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/categories_remote_data_source.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/repositories/categories_repository.dart';
-
+import 'package:injectable/injectable.dart';
+@LazySingleton(as:CategoriesRepository )
 class CategoriesRepositoryImp implements CategoriesRepository {
   CategoriesRemoteDataSource remoteDataSource;
   CategoriesRepositoryImp({required this.remoteDataSource});

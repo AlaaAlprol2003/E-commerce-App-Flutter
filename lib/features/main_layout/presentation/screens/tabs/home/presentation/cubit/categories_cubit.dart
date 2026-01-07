@@ -1,7 +1,8 @@
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:injectable/injectable.dart';
+@lazySingleton
 class CategoriesCubit extends Cubit<CategoriesState> {
   GetCategoriesUseCase getCategoriesUseCase;
   CategoriesCubit({required this.getCategoriesUseCase})

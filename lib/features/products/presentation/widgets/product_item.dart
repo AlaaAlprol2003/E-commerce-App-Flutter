@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_if_null_operators
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/features/products/domain/entites/product_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,17 +15,21 @@ class ProductItem extends StatelessWidget {
   final ProductEntity product;
   @override
   Widget build(BuildContext context) {
+    var cartCubit = BlocProvider.of<CartCubit>(context);
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, Routes.productDetailsScreen,arguments: product);
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          Routes.productDetailsScreen,
+          arguments: product,
+        );
       },
       child: Container(
         width: 200.w,
         height: 300.h,
         margin: REdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      
+
         decoration: BoxDecoration(
-         
           border: Border.all(color: ColorsManager.blue),
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -36,7 +42,7 @@ class ProductItem extends StatelessWidget {
                     topLeft: Radius.circular(16.r),
                     topRight: Radius.circular(16.r),
                   ),
-            
+
                   child: CachedNetworkImage(
                     imageUrl: product.imageCover,
                     placeholder: (context, url) => CircularProgressIndicator(),
@@ -50,12 +56,15 @@ class ProductItem extends StatelessWidget {
                   right: 0,
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.favorite_outline, color: ColorsManager.blue),
+                    icon: Icon(
+                      Icons.favorite_outline,
+                      color: ColorsManager.blue,
+                    ),
                   ),
                 ),
               ],
             ),
-      
+
             Flexible(
               child: Padding(
                 padding: REdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
@@ -75,7 +84,7 @@ class ProductItem extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                         "EGP ${product.priceAfterDiscount != null ? product.priceAfterDiscount : product.price }",
+                          "EGP ${product.priceAfterDiscount != null ? product.priceAfterDiscount : product.price}",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: GoogleFonts.poppins(
@@ -85,9 +94,9 @@ class ProductItem extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 12.w),
-                       
+
                         Text(
-                          "${product.priceAfterDiscount != null ? product.price : "" }",
+                          "${product.priceAfterDiscount != null ? product.price : ""}",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: GoogleFonts.poppins(
@@ -119,7 +128,9 @@ class ProductItem extends StatelessWidget {
                           backgroundColor: ColorsManager.darkBlue,
                           foregroundColor: ColorsManager.white,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              cartCubit.addToCart(productID: product.sId);
+                            },
                             icon: Icon(Icons.add),
                           ),
                         ),

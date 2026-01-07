@@ -40,7 +40,7 @@ class OrderedQuantityWidget extends StatelessWidget {
           InkWell(
             onTap: onMinClicked,
             child: Container(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               decoration: BoxDecoration(
               
                 color: Colors.transparent,
@@ -49,7 +49,7 @@ class OrderedQuantityWidget extends StatelessWidget {
               ),
               child: Align(
                 alignment: Alignment.topCenter,
-                child: Icon(Icons.minimize_rounded,color: ColorsManager.white,)),
+                child: Icon(Icons.remove,color: ColorsManager.white,)),
             ),
           ),
         ],

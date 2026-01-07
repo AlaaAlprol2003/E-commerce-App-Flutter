@@ -4,12 +4,10 @@ import 'package:e_commerce/core/domain/entities/cart_item_entity.dart';
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/ordered_quantity_widget.dart';
-import 'package:e_commerce/features/product_details/provider/product_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({super.key, required this.cartItem,});
@@ -18,7 +16,7 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
-    var provider = Provider.of<ProductDetailsProvider>(context);
+   
     return Container(
       width: double.infinity,
       height: 130.h,

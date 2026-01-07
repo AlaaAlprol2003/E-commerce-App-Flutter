@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class ProductDetailsProvider extends ChangeNotifier {
   int counter = 1;
   int selectedIndex = 0;
-  int selectedSize = -1;
-  int selectedColor = -1;
+  int selectedSize = 0;
+  int selectedColor = 0;
   final List<int> sizes = [38, 39, 40, 41, 42, 43];
   final List<Color> colors = [
     ColorsManager.black,

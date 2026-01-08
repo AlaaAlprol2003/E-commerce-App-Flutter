@@ -38,6 +38,20 @@ import '../../features/main_layout/presentation/screens/tabs/categories/domain/u
     as _i300;
 import '../../features/main_layout/presentation/screens/tabs/categories/presentation/cubit/sub_categories_cubit.dart'
     as _i1028;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/data/data_sources/wishlist_api_remote_data_source.dart'
+    as _i69;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/data/data_sources/wishlist_remote_data_source.dart'
+    as _i733;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/data/respository_impl/wishlist_repository_impl.dart'
+    as _i514;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/domain/repositories/wishlist_repository.dart'
+    as _i540;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/domain/use_cases/add_to_wishlist_use_case.dart'
+    as _i212;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/domain/use_cases/get_wishlist_use_case.dart'
+    as _i605;
+import '../../features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart'
+    as _i391;
 import '../../features/main_layout/presentation/screens/tabs/home/data/brands_repository_impl.dart/brands_repository_impl.dart'
     as _i988;
 import '../../features/main_layout/presentation/screens/tabs/home/data/categories_rpositories_imp.dart/categories_repository_imp.dart'
@@ -86,6 +100,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i730.SubCategoriesRemoteDataSource>(
       () => _i649.SubCategoriesApiRemoteDataSource(),
     );
+    gh.lazySingleton<_i733.WishlistRemoteDataSource>(
+      () => _i69.WishlistApiRemoteDataSource(),
+    );
     gh.singleton<_i432.AuthRemoteDataSource>(
       () => _i112.AuthApiRemoteDataSource(),
     );
@@ -123,15 +140,36 @@ extension GetItInjectableX on _i174.GetIt {
         brandsRemoteDataSource: gh<_i371.BrandsRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i540.WishlistRepository>(
+      () => _i514.WishlistRepositoryImpl(
+        remoteDataSource: gh<_i733.WishlistRemoteDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i151.SubCategoryRepository>(
       () => _i103.SubCategoryRepositoryImpl(
         remoteDataSource: gh<_i730.SubCategoriesRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i212.AddToWishlistUseCase>(
+      () => _i212.AddToWishlistUseCase(
+        wishlistRepository: gh<_i540.WishlistRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i605.GetWishlistUseCase>(
+      () => _i605.GetWishlistUseCase(
+        wishlistRepository: gh<_i540.WishlistRepository>(),
       ),
     );
     gh.singleton<_i787.AuthRepository>(
       () => _i710.AuthRepositoryImpl(
         authRemoteDataSource: gh<_i432.AuthRemoteDataSource>(),
         authLocalDataSource: gh<_i485.AuthLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i391.WishlistCubit>(
+      () => _i391.WishlistCubit(
+        addToWishlistUseCase: gh<_i212.AddToWishlistUseCase>(),
+        getWishlistUseCase: gh<_i605.GetWishlistUseCase>(),
       ),
     );
     gh.lazySingleton<_i994.AddToCartUseCase>(
@@ -163,7 +201,7 @@ extension GetItInjectableX on _i174.GetIt {
         clearCartUseCase: gh<_i893.ClearCartUseCase>(),
       ),
     );
-    gh.lazySingleton<_i300.GetSubCategoriesUseCase>(
+    gh.factory<_i300.GetSubCategoriesUseCase>(
       () => _i300.GetSubCategoriesUseCase(
         subCategoryRepository: gh<_i151.SubCategoryRepository>(),
       ),
@@ -187,7 +225,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i273.BrandsCubit>(
       () => _i273.BrandsCubit(brandsUseCase: gh<_i58.GetBrandsUseCase>()),
     );
-    gh.lazySingleton<_i1028.SubCategoriesCubit>(
+    gh.factory<_i1028.SubCategoriesCubit>(
       () => _i1028.SubCategoriesCubit(
         getSubCategoriesUseCase: gh<_i300.GetSubCategoriesUseCase>(),
       ),

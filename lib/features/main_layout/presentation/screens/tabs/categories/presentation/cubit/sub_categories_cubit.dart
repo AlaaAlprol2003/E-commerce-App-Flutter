@@ -2,7 +2,7 @@ import 'package:e_commerce/features/main_layout/presentation/screens/tabs/catego
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/domain/use_cases.dart/get_sub_categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-@lazySingleton
+@injectable
 class SubCategoriesCubit extends Cubit<SubCategoriesState> {
   GetSubCategoriesUseCase getSubCategoriesUseCase;
   SubCategoriesCubit({required this.getSubCategoriesUseCase})

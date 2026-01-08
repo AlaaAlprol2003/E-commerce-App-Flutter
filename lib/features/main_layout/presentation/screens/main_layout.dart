@@ -5,7 +5,8 @@ import 'package:e_commerce/features/main_layout/presentation/screens/tabs/catego
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/domain/use_cases.dart/get_sub_categories_use_case.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/categories_tab.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/cubit/sub_categories_cubit.dart';
-import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/favorite_tab.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/brands_repository_impl.dart/brands_repository_impl.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/categories_rpositories_imp.dart/categories_repository_imp.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/brands_api_remote_data_source.dart';

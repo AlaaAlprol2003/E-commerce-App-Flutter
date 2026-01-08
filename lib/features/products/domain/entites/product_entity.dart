@@ -9,8 +9,8 @@ class ProductEntity {
   final String imageCover;
   final num? ratingsQuantity;
   final num?ratingsAverage;
-  final num? priceAfterDiscount; // تأكد أنها nullable
-  final List<dynamic>? availableColors; // تأكد أنها dynamic
+  final num? priceAfterDiscount; 
+  final List<dynamic>? availableColors; 
 
   ProductEntity({
     required this.sId,

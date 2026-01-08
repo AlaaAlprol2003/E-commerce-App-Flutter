@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:e_commerce/features/products/domain/entites/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +12,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product});
+  const ProductItem({super.key, required this.product, required this.index});
   final ProductEntity product;
+  final int index;
   @override
   Widget build(BuildContext context) {
+    var wishlistCubit = BlocProvider.of<WishlistCubit>(context);
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    bool isFound = wishlistCubit.items.any((item) => item.id == product.sId);
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
@@ -54,12 +58,29 @@ class ProductItem extends StatelessWidget {
                 ),
                 Positioned(
                   right: 0,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite_outline,
-                      color: ColorsManager.blue,
-                    ),
+                  child: BlocBuilder<WishlistCubit, WishlistState>(
+                    buildWhen: (previous, current) =>
+                        current is GetWishlistSuccess ||
+                        current is AddToWishlistSuccess,
+                    builder: (context, state) {
+                      final wishlistCubit = context.read<WishlistCubit>();
+
+                      final isFound = wishlistCubit.items.any(
+                        (item) => item.id == product.sId,
+                      );
+
+                      return IconButton(
+                        onPressed: () {
+                          wishlistCubit.addToWishlist(productID: product.sId);
+                        },
+                        icon: Icon(
+                          isFound
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          color: ColorsManager.blue,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

@@ -7,6 +7,7 @@ import 'package:e_commerce/core/routes_manager/router.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 
 import 'package:e_commerce/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:e_commerce/features/product_details/provider/product_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ void main() {
       providers: [
         BlocProvider(create: (context) => serviceLocator.get<AuthCubit>()),
         BlocProvider(create: (context) => serviceLocator.get<CartCubit>()),
+        BlocProvider(create: (context) => serviceLocator.get<WishlistCubit>()),
       ],
 
       child: MultiProvider(

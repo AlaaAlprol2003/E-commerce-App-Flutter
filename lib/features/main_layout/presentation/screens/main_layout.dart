@@ -16,7 +16,7 @@ import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/d
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/home_tap.dart';
-import 'package:e_commerce/features/main_layout/presentation/screens/tabs/profile_tab.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/profile/presentation/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

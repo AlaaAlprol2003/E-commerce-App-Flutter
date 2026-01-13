@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LabelTextWidget extends StatelessWidget {
-  const LabelTextWidget({super.key, required this.text});
+  const LabelTextWidget({super.key, required this.text,this.textColor = ColorsManager.white});
   final String text;
+  final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -15,7 +16,7 @@ class LabelTextWidget extends StatelessWidget {
         style: GoogleFonts.poppins(
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
-          color: ColorsManager.white,
+          color: textColor,
         ),
       ),
     );

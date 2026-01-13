@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +13,8 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboard = TextInputType.text,
     this.isSecure = false,
     this.suffIcon, required this.controller,  this.validator,
-    this.borderColor = ColorsManager.white, this.preIcon
+    this.borderColor = ColorsManager.white, this.preIcon, this.suffixColor = ColorsManager.grey,
+    this.hintColor ,
   });
   final String hintText;
   final TextInputType keyboard;
@@ -22,6 +25,8 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Color? borderColor;
   final Widget? preIcon;
+  final Color? suffixColor;
+  final Color? hintColor;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -36,12 +41,12 @@ class CustomTextFormField extends StatelessWidget {
         hintStyle: GoogleFonts.poppins(
           fontSize: 18.sp,
           fontWeight: FontWeight.w300,
-          color: ColorsManager.black.withValues(alpha: .7),
+          color:hintColor == null ? ColorsManager.black.withValues(alpha: .7) : hintColor,
         ),
         suffixIcon: suffIcon,
         prefixIcon: preIcon,
         prefixIconColor: ColorsManager.blue,
-        suffixIconColor: ColorsManager.grey,
+        suffixIconColor: suffixColor,
         filled: true,
         fillColor: ColorsManager.white,
         enabledBorder: OutlineInputBorder(

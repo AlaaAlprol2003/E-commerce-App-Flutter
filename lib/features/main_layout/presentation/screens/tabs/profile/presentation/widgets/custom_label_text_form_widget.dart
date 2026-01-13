@@ -22,7 +22,7 @@ class CustomLabelTextFormWidget extends StatelessWidget {
         CustomTextFormField(
           hintText: hintText,
           isSecure:secureField ,
-          
+          hintFontWeight: FontWeight.w500,
           hintColor: ColorsManager.darkBlue,
           controller: controller,
           suffIcon: Icon(Icons.edit_square),

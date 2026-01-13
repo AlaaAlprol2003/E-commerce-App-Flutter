@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
@@ -5,6 +7,7 @@ import 'package:e_commerce/core/resources/validators.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
+import 'package:e_commerce/core/widgets/user_data_shared_prefs.dart';
 import 'package:e_commerce/features/auth/data/models/register_request.dart';
 import 'package:e_commerce/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text_button.dart';
@@ -142,8 +145,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CustomElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState?.validate() == false) return;
+                        await UserDataSharedPrefs.saveUserData(
+                          name: _nameController.text,
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          phone: _phoneController.text,
+                        );
                         BlocProvider.of<AuthCubit>(context).register(
                           RegisterRequest(
                             name: _nameController.text,

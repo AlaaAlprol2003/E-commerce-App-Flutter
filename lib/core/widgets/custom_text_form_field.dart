@@ -14,7 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.isSecure = false,
     this.suffIcon, required this.controller,  this.validator,
     this.borderColor = ColorsManager.white, this.preIcon, this.suffixColor = ColorsManager.grey,
-    this.hintColor ,
+    this.hintColor ,this.hintFontWeight
   });
   final String hintText;
   final TextInputType keyboard;
@@ -27,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? preIcon;
   final Color? suffixColor;
   final Color? hintColor;
+  final FontWeight? hintFontWeight;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -40,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
         
         hintStyle: GoogleFonts.poppins(
           fontSize: 18.sp,
-          fontWeight: FontWeight.w300,
+          fontWeight:hintFontWeight != null ? hintFontWeight : FontWeight.w300,
           color:hintColor == null ? ColorsManager.black.withValues(alpha: .7) : hintColor,
         ),
         suffixIcon: suffIcon,

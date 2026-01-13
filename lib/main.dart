@@ -5,6 +5,7 @@ import 'package:e_commerce/core/di/service_locator.dart';
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/routes_manager/router.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/user_data_shared_prefs.dart';
 
 import 'package:e_commerce/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // UserDataSharedPrefs.init();
   configureDependencies();
   runApp(
     MultiBlocProvider(

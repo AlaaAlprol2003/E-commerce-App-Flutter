@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
+import 'package:e_commerce/core/widgets/user_data_shared_prefs.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
@@ -74,6 +77,7 @@ class _HomeTapState extends State<HomeTap> {
                   );
                 } else if (state is CategoriesSuccess) {
                   List<CategoryEntity> categories = state.categories;
+
                   return SizedBox(
                     height: 350.h,
                     child: GridView.builder(
@@ -87,12 +91,22 @@ class _HomeTapState extends State<HomeTap> {
                         childAspectRatio: 20 / 10,
                       ),
                       itemCount: categories.length,
-                      itemBuilder: (context, index) =>
-                          InkWell(
-                            onTap: (){
-                              Navigator.pushNamed(context, Routes.productScreen,arguments: categories[index]);
-                            },
-                            child: CategoryItem(category: categories[index],index: index,)),
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () async {
+                          List<String> userData =
+                              await UserDataSharedPrefs.getUserData();
+                          print("${userData[0]},${userData[1]},${userData[2]}");
+                          Navigator.pushNamed(
+                            context,
+                            Routes.productScreen,
+                            arguments: categories[index],
+                          );
+                        },
+                        child: CategoryItem(
+                          category: categories[index],
+                          index: index,
+                        ),
+                      ),
                     ),
                   );
                 }

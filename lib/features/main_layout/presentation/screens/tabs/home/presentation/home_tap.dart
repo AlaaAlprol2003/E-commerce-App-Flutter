@@ -93,9 +93,8 @@ class _HomeTapState extends State<HomeTap> {
                       itemCount: categories.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () async {
-                          List<String> userData =
-                              await UserDataSharedPrefs.getUserData();
-                          print("${userData[0]},${userData[1]},${userData[2]}");
+                          
+                         
                           Navigator.pushNamed(
                             context,
                             Routes.productScreen,
@@ -139,7 +138,11 @@ class _HomeTapState extends State<HomeTap> {
                       scrollDirection: Axis.horizontal,
                       itemCount: brands.length,
                       itemBuilder: (context, index) =>
-                          BrandItem(brand: brands[index]),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, Routes.productScreen,arguments: brands[index]);
+                            },
+                            child: BrandItem(brand: brands[index])),
                     ),
                   );
                 }

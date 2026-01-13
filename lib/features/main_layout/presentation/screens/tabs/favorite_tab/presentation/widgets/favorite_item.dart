@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/domain/entities/wishlist_item_entity.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,10 +30,12 @@ class FavoriteItem extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.r),
-              child: Image.network(
-                wishlistItem.imageCover,
+              child: CachedNetworkImage(
+                imageUrl: wishlistItem.imageCover,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
                 fit: BoxFit.cover,
-                width: 130.w,
+                width: 120.w,
                 height: double.infinity,
               ),
             ),
@@ -53,9 +59,23 @@ class FavoriteItem extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Row(
+                    spacing: 5.w,
+                    children: [
+                      Text(
+                        " ${wishlistItem.ratingsAverage}",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: ColorsManager.darkBlue,
+                        ),
+                      ),
+                      Icon(Icons.star,color: Colors.yellow.withValues(alpha: .9),)
+                    ],
+                  ),
 
                   Text(
-                   " ${wishlistItem.price}",
+                    " ${wishlistItem.price}",
                     style: GoogleFonts.poppins(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w500,
@@ -75,13 +95,17 @@ class FavoriteItem extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: CircleAvatar(
-                      backgroundColor: ColorsManager.offwhite.withValues(
-                        alpha: .6,
-                      ),
-                      child: Icon(
-                        Icons.favorite,
-                        color: ColorsManager.darkBlue,
+                    child: InkWell(
+                      onTap: () {
+                        BlocProvider.of<WishlistCubit>(
+                          context,
+                        ).deleteProductFromWishlist(productID: wishlistItem.id);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: ColorsManager.offwhite.withValues(
+                          alpha: .6,
+                        ),
+                        child: Icon(Icons.favorite, color: ColorsManager.blue),
                       ),
                     ),
                   ),
@@ -93,7 +117,11 @@ class FavoriteItem extends StatelessWidget {
                       padding: 1,
                       hrPadding: 20,
                       bgColor: ColorsManager.darkBlue,
-                      onPressed: () {},
+                      onPressed: () {
+                        BlocProvider.of<CartCubit>(
+                          context,
+                        ).addToCart(productID: wishlistItem.id);
+                      },
                     ),
                   ),
                 ],

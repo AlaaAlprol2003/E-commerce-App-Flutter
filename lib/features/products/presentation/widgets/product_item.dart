@@ -15,11 +15,12 @@ class ProductItem extends StatelessWidget {
   const ProductItem({super.key, required this.product, required this.index});
   final ProductEntity product;
   final int index;
+
   @override
   Widget build(BuildContext context) {
     var wishlistCubit = BlocProvider.of<WishlistCubit>(context);
     var cartCubit = BlocProvider.of<CartCubit>(context);
-    bool isFound = wishlistCubit.items.any((item) => item.id == product.sId);
+
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
@@ -71,13 +72,22 @@ class ProductItem extends StatelessWidget {
 
                       return IconButton(
                         onPressed: () {
-                          wishlistCubit.addToWishlist(productID: product.sId);
+                          if (isFound) {
+                            wishlistCubit.deleteProductFromWishlist(
+                              productID: product.sId,
+                            );
+                          } else {
+                            wishlistCubit.addToWishlist(productID: product.sId);
+                          }
                         },
-                        icon: Icon(
-                          isFound
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                          color: ColorsManager.blue,
+                        icon: CircleAvatar(
+                          backgroundColor: ColorsManager.offwhite.withValues(alpha: .6),
+                          child: Icon(
+                            isFound
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            color: ColorsManager.blue,
+                          ),
                         ),
                       );
                     },

@@ -6,6 +6,7 @@ import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favori
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/domain/entities/wishlist_item_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/domain/repositories/wishlist_repository.dart';
 import 'package:injectable/injectable.dart';
+
 @LazySingleton(as: WishlistRepository)
 class WishlistRepositoryImpl implements WishlistRepository {
   WishlistRemoteDataSource remoteDataSource;
@@ -36,6 +37,24 @@ class WishlistRepositoryImpl implements WishlistRepository {
             .map((product) => product.toWishlistItem())
             .toList(),
       );
+    } on RemoteException catch (exception) {
+      return Left(Failure(message: exception.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteProductFromWishlist({
+    required String productID,
+  }) async {
+    try {
+      AuthSharedPrefsLocalDataSource authSharedPrefsLocalDataSource =
+          AuthSharedPrefsLocalDataSource();
+      String token = await authSharedPrefsLocalDataSource.getToken();
+      await remoteDataSource.deleteProductFromWishlist(
+        token: token,
+        productId: productID,
+      );
+      return Right(null);
     } on RemoteException catch (exception) {
       return Left(Failure(message: exception.message));
     }

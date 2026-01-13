@@ -1,10 +1,10 @@
 
-import 'package:e_commerce/core/domain/entities/cart_entity.dart';
-import 'package:e_commerce/core/domain/use_cases/add_to_cart_use_case.dart';
-import 'package:e_commerce/core/domain/use_cases/clear_cart_use_case.dart';
-import 'package:e_commerce/core/domain/use_cases/delete_product_from_cart.dart';
-import 'package:e_commerce/core/domain/use_cases/get_cart.dart';
-import 'package:e_commerce/core/domain/use_cases/update_cart_product_quality_use_case.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_entity.dart';
+import 'package:e_commerce/features/cart/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:e_commerce/features/cart/domain/use_cases/clear_cart_use_case.dart';
+import 'package:e_commerce/features/cart/domain/use_cases/delete_product_from_cart.dart';
+import 'package:e_commerce/features/cart/domain/use_cases/get_cart.dart';
+import 'package:e_commerce/features/cart/domain/use_cases/update_cart_product_quality_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 

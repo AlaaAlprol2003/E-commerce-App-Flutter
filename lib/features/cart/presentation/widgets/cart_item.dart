@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_if_null_operators
 
-import 'package:e_commerce/core/domain/entities/cart_item_entity.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/ordered_quantity_widget.dart';

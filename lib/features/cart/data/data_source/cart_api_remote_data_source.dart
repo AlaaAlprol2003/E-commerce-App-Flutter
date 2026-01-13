@@ -2,8 +2,8 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:e_commerce/core/data/data_source/cart_remote_data_source.dart';
-import 'package:e_commerce/core/data/models/cart_response.dart';
+import 'package:e_commerce/features/cart/data/data_source/cart_remote_data_source.dart';
+import 'package:e_commerce/features/cart/data/models/cart_response.dart';
 import 'package:e_commerce/core/errors/app_exceptions.dart';
 import 'package:e_commerce/core/resources/constatnt_manager.dart';
 import 'package:injectable/injectable.dart';

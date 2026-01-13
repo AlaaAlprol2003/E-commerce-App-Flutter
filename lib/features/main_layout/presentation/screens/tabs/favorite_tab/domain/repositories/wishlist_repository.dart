@@ -5,4 +5,5 @@ import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favori
 abstract class WishlistRepository {
   Future<Either<Failure, void>> addToCart({required String productID});
   Future<Either<Failure, List<WishlistItemEntity>>> getWishlist();
+  Future<Either<Failure, void>> deleteProductFromWishlist({required String productID});
 }

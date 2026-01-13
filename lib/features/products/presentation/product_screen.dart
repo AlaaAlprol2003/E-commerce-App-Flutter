@@ -21,12 +21,11 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
@@ -56,7 +55,8 @@ class _ProductScreenState extends State<ProductScreen> {
       },
       child: BlocListener<WishlistCubit, WishlistState>(
         listener: (context, state) {
-          if (state is AddToWishlistLoading) {
+          if (state is AddToWishlistLoading ||
+              state is DeleteProductFromWishlistLoading) {
             UiUtils.showLoadingDialog(context);
           } else if (state is AddToWishlistFailure) {
             UiUtils.hideLoadingDialog(context);
@@ -67,12 +67,32 @@ class _ProductScreenState extends State<ProductScreen> {
               Colors.red,
               Icons.check_circle,
             );
-          } else if (state is AddToWishlistSuccess) {
+          } else if (state is DeleteProductFromWishlistFailure) {
             UiUtils.hideLoadingDialog(context);
             context.read<WishlistCubit>().getWishlist();
             UiUtils.showToastNotificationBar(
               context,
               "Success",
+              ColorsManager.white,
+              Colors.green,
+              Icons.check_circle,
+            );
+          } else if (state is DeleteProductFromWishlistSuccess) {
+            UiUtils.hideLoadingDialog(context);
+            context.read<WishlistCubit>().getWishlist();
+            UiUtils.showToastNotificationBar(
+              context,
+              "Product removed successfully from your wishlist",
+              ColorsManager.white,
+              Colors.green,
+              Icons.check_circle,
+            );
+          } else if (state is AddToWishlistSuccess) {
+            UiUtils.hideLoadingDialog(context);
+            context.read<WishlistCubit>().getWishlist();
+            UiUtils.showToastNotificationBar(
+              context,
+              "Product added successfully to your wishlist",
               ColorsManager.white,
               Colors.green,
               Icons.check_circle,
@@ -130,7 +150,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) =>
-                            ProductItem(product: products[index],index: index,),
+                            ProductItem(product: products[index], index: index),
                       );
               }
               return SizedBox();

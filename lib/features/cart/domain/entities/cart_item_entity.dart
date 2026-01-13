@@ -1,4 +1,4 @@
-import 'package:e_commerce/core/domain/entities/cart_product_entity.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_product_entity.dart';
 
 class CartItemEntity {
   final int count;

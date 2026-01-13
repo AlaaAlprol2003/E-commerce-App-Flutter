@@ -1,5 +1,5 @@
 
-import 'package:e_commerce/core/data/models/cart_response.dart';
+import 'package:e_commerce/features/cart/data/models/cart_response.dart';
 
 abstract class CartRemoteDataSource {
   Future<void> addToCart({required String token, required String productID});

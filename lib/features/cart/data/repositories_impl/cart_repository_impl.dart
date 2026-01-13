@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'package:dart_either/dart_either.dart';
-import 'package:e_commerce/core/data/data_source/cart_remote_data_source.dart';
-import 'package:e_commerce/core/domain/entities/cart_entity.dart';
-import 'package:e_commerce/core/domain/repositories/cart_repository.dart';
+import 'package:e_commerce/features/cart/data/data_source/cart_remote_data_source.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_entity.dart';
 import 'package:e_commerce/core/errors/app_exceptions.dart';
 import 'package:e_commerce/core/errors/failure.dart';
 import 'package:e_commerce/features/auth/data/data_sources/local/auth_shared_prefs_local_data_source.dart';
+import 'package:e_commerce/features/cart/domain/repositories/cart_repository.dart';
 import 'package:injectable/injectable.dart';
 @LazySingleton(as:CartRepository )
 class CartRepositoryImpl implements CartRepository {

@@ -1,4 +1,4 @@
-import 'package:e_commerce/core/domain/entities/cart_item_entity.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_item_entity.dart';
 
 class CartEntity {
   final List<CartItemEntity> cartItems;

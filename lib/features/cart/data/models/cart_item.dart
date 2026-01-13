@@ -1,5 +1,5 @@
-import 'package:e_commerce/core/data/models/cart_product.dart';
-import 'package:e_commerce/core/domain/entities/cart_item_entity.dart';
+import 'package:e_commerce/features/cart/data/models/cart_product.dart';
+import 'package:e_commerce/features/cart/domain/entities/cart_item_entity.dart';
 
 class CartItem {
   final int count;

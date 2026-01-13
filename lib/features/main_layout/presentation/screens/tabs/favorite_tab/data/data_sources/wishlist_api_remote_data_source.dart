@@ -4,6 +4,7 @@ import 'package:e_commerce/core/resources/constatnt_manager.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/data/data_sources/wishlist_remote_data_source.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/data/models/wishlist_response.dart';
 import 'package:injectable/injectable.dart';
+
 @LazySingleton(as: WishlistRemoteDataSource)
 class WishlistApiRemoteDataSource implements WishlistRemoteDataSource {
   Dio dio = Dio(BaseOptions(baseUrl: ApiConstatnt.baseUrl));
@@ -43,6 +44,25 @@ class WishlistApiRemoteDataSource implements WishlistRemoteDataSource {
         message = exception.response?.data["message"];
       }
       throw RemoteException(message: message ?? "Failed To Add Product");
+    }
+  }
+
+  @override
+  Future<void> deleteProductFromWishlist({
+    required String token,
+    required String productId,
+  }) async {
+    try {
+      await dio.delete(
+        "${ApiConstatnt.wishlistEndPoint}/$productId",
+        options: Options(headers: {"token": token}),
+      );
+    } catch (exception) {
+      String? message;
+      if (exception is DioException) {
+        message = exception.response?.data["message"];
+      }
+      throw RemoteException(message: message ?? "Failed To Delete Product");
     }
   }
 }

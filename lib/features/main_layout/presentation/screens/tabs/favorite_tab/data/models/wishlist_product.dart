@@ -56,5 +56,5 @@ class WishlistProduct {
   }
 
   WishlistItemEntity toWishlistItem() =>
-      WishlistItemEntity(imageCover: imageCover, title: title, price: price,id: id);
+      WishlistItemEntity(imageCover: imageCover, title: title, price: price,id: id,ratingsAverage: ratingsAverage);
 }

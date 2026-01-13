@@ -1,4 +1,4 @@
-import 'package:e_commerce/core/data/models/cart.dart';
+import 'package:e_commerce/features/cart/data/models/cart.dart';
 
 class CartResponse {
   final String status;

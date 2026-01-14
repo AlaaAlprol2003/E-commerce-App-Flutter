@@ -93,6 +93,18 @@ import '../../features/main_layout/presentation/screens/tabs/home/presentation/c
     as _i273;
 import '../../features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart'
     as _i705;
+import '../../features/products_by_brand_screen.dart/data/data_sources/products_api_remote_data_source_by_brand.dart'
+    as _i832;
+import '../../features/products_by_brand_screen.dart/data/data_sources/products_remote_data_source_by_brand.dart'
+    as _i844;
+import '../../features/products_by_brand_screen.dart/data/repositories_impl/products_by_brand_repo_impl.dart'
+    as _i11;
+import '../../features/products_by_brand_screen.dart/domain/repositories/products_by_brand_repository.dart'
+    as _i754;
+import '../../features/products_by_brand_screen.dart/domain/use_cases/products_by_brand_use_case.dart'
+    as _i706;
+import '../../features/products_by_brand_screen.dart/presentation/cubit/products_by_brand_cubit.dart'
+    as _i778;
 import '../presentation/cart_cubit.dart' as _i459;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -104,6 +116,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i610.CategoriesRemoteDataSource>(
       () => _i635.CategoriesApiRemoteDataSource(),
+    );
+    gh.lazySingleton<_i844.ProductsRemoteDataSourceByBrand>(
+      () => _i832.ProductsApiRemoteDataSourceByBrand(),
     );
     gh.lazySingleton<_i730.SubCategoriesRemoteDataSource>(
       () => _i649.SubCategoriesApiRemoteDataSource(),
@@ -117,6 +132,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i79.CategoriesRepository>(
       () => _i301.CategoriesRepositoryImp(
         remoteDataSource: gh<_i610.CategoriesRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i754.ProductsByBrandRepository>(
+      () => _i11.ProductsByBrandRepoImpl(
+        remoteDataSourceByBrand: gh<_i844.ProductsRemoteDataSourceByBrand>(),
       ),
     );
     gh.lazySingleton<_i371.BrandsRemoteDataSource>(
@@ -168,10 +188,20 @@ extension GetItInjectableX on _i174.GetIt {
         wishlistRepository: gh<_i540.WishlistRepository>(),
       ),
     );
+    gh.factory<_i706.ProductsByBrandUseCase>(
+      () => _i706.ProductsByBrandUseCase(
+        productsByBrandRepository: gh<_i754.ProductsByBrandRepository>(),
+      ),
+    );
     gh.singleton<_i787.AuthRepository>(
       () => _i710.AuthRepositoryImpl(
         authRemoteDataSource: gh<_i432.AuthRemoteDataSource>(),
         authLocalDataSource: gh<_i485.AuthLocalDataSource>(),
+      ),
+    );
+    gh.factory<_i778.ProductsByBrandCubit>(
+      () => _i778.ProductsByBrandCubit(
+        productsByBrandUseCase: gh<_i706.ProductsByBrandUseCase>(),
       ),
     );
     gh.lazySingleton<_i322.CartRepository>(

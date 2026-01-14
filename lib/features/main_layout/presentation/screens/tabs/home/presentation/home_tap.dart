@@ -5,7 +5,6 @@ import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
-import 'package:e_commerce/core/widgets/user_data_shared_prefs.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
@@ -140,7 +139,7 @@ class _HomeTapState extends State<HomeTap> {
                       itemBuilder: (context, index) =>
                           InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, Routes.productScreen,arguments: brands[index]);
+                              Navigator.pushNamed(context, Routes.productsByBrandScreen,arguments: brands[index]);
                             },
                             child: BrandItem(brand: brands[index])),
                     ),
@@ -155,3 +154,5 @@ class _HomeTapState extends State<HomeTap> {
     );
   }
 }
+
+

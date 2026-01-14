@@ -18,7 +18,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var wishlistCubit = BlocProvider.of<WishlistCubit>(context);
+    
     var cartCubit = BlocProvider.of<CartCubit>(context);
 
     return InkWell(

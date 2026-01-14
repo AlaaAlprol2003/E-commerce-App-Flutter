@@ -5,4 +5,5 @@ abstract class Routes {
   static const String productScreen = "/product_screen";
   static const String productDetailsScreen = "/product_details_screen";
   static const String cartScreen = "/cart_screen";
+  static const String productsByBrandScreen = "/products_By_Brand_Screen";
 }

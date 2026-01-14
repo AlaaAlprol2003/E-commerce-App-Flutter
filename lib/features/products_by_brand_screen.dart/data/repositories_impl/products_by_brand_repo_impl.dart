@@ -1,10 +1,11 @@
 import 'package:dart_either/dart_either.dart';
 import 'package:e_commerce/core/errors/app_exceptions.dart';
 import 'package:e_commerce/core/errors/failure.dart';
-import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/data/data_source/products_remote_data_source_by_brand.dart';
-import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/repositories/products_by_brand_repository.dart';
 import 'package:e_commerce/features/products/domain/entites/product_entity.dart';
-
+import 'package:e_commerce/features/products_by_brand_screen.dart/data/data_sources/products_remote_data_source_by_brand.dart';
+import 'package:e_commerce/features/products_by_brand_screen.dart/domain/repositories/products_by_brand_repository.dart';
+import 'package:injectable/injectable.dart';
+@LazySingleton(as:ProductsByBrandRepository)
 class ProductsByBrandRepoImpl implements ProductsByBrandRepository {
   ProductsRemoteDataSourceByBrand remoteDataSourceByBrand;
   ProductsByBrandRepoImpl({required this.remoteDataSourceByBrand});

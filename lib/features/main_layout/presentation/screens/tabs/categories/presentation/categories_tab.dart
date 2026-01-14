@@ -21,7 +21,7 @@ class CategoriesTab extends StatefulWidget {
 class _CategoriesTabState extends State<CategoriesTab> {
   int selectedCategory = 2;
   String categoryImage =
-      "https://i.pinimg.com/736x/23/4c/78/234c78d367f937a8a1c8c5dde3603d00.jpg";
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo902AJh8YABzJv5X57j3qt5N9Oupn7SmMsw&s";
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +62,16 @@ class _CategoriesTabState extends State<CategoriesTab> {
                             border: Border(
                               left: BorderSide(color: ColorsManager.darkBlue),
                             ),
-                            color: ColorsManager.blue.withValues(alpha: .5),
+                            color: Color(0xFF2C4C64),
                           ),
                           child: ListView.builder(
                             itemCount: categoriesData.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
                                 selectedCategory = index;
-                                categoryImage =index == 2 ? "https://i.pinimg.com/736x/23/4c/78/234c78d367f937a8a1c8c5dde3603d00.jpg": categoriesData[index].image;
+                                categoryImage = index == 2
+                                    ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo902AJh8YABzJv5X57j3qt5N9Oupn7SmMsw&s"
+                                    : categoriesData[index].image;
                                 context
                                     .read<SubCategoriesCubit>()
                                     .getSubCategories(categoriesData[index].id);
@@ -88,7 +90,9 @@ class _CategoriesTabState extends State<CategoriesTab> {
                                   style: TextStyle(
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: ColorsManager.darkBlue,
+                                    color: selectedCategory == index
+                                        ? ColorsManager.darkBlue
+                                        : ColorsManager.offwhite,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -118,7 +122,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
 
                         return Expanded(
                           child: Padding(
-                            padding: REdgeInsets.symmetric(horizontal: 8.0),
+                            padding: REdgeInsets.symmetric(horizontal: 4.0),
                             child: Column(
                               children: [
                                 Container(
@@ -126,6 +130,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16.r),
+                                    
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(16.r),

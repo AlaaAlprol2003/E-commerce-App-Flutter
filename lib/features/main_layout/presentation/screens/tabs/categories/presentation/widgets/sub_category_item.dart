@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SubCategoryItem extends StatelessWidget {
   const SubCategoryItem({super.key, required this.subcategoryEntity});
   final SubCategoryEntity subcategoryEntity;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,9 +15,11 @@ class SubCategoryItem extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r),
       border: Border.all(color: ColorsManager.lightBlue,width: 2.w),
-      color: ColorsManager.offwhite
+      color: Color(0xFF2C4C64) ,
+      boxShadow: [BoxShadow(color: ColorsManager.black,blurRadius: 4,offset: Offset(15, 15)),],
+      
       ),
-      child: Text(subcategoryEntity.name,textAlign: TextAlign.center,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,color: ColorsManager.darkBlue),)
+      child: Text(subcategoryEntity.name,textAlign: TextAlign.center,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,color: ColorsManager.offwhite ),)
     );
   }
 }

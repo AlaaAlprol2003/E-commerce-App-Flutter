@@ -101,7 +101,7 @@ class CartApiRemoteDataSource implements CartRemoteDataSource {
       if (exception is DioException) {
         message = exception.response?.data["message"];
       }
-      throw RemoteException(message: message ?? exception.toString());
+      throw RemoteException(message: message ?? "Failed to get cart");
     }
   }
 }

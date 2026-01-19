@@ -21,7 +21,7 @@ class SubCategoriesApiRemoteDataSource
       if (exception is DioException) {
         message = exception.response?.data["message"];
       }
-      throw RemoteException(message: message ?? "Failed");
+      throw RemoteException(message: message ?? "&Failed to get subcategories");
     }
   }
 }

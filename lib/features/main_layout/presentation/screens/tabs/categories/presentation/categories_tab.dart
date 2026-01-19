@@ -111,10 +111,12 @@ class _CategoriesTabState extends State<CategoriesTab> {
                           child: Center(child: CircularProgressIndicator()),
                         );
                       } else if (state is SubCategoriesfailure) {
-                        return Center(
-                          child: Text(
-                            state.message,
-                            style: TextStyle(color: ColorsManager.black),
+                        return Expanded(
+                          child: Center(
+                            child: Text(
+                              state.message,
+                              style: TextStyle(color: ColorsManager.black),
+                            ),
                           ),
                         );
                       } else if (state is SubCategoriesSuccess) {

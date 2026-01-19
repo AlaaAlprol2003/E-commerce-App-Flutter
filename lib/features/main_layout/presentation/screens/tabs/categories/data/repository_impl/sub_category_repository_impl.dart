@@ -20,8 +20,8 @@ class SubCategoryRepositoryImpl implements SubCategoryRepository {
             .map((subcategory) => subcategory.toSubCategoryEntity())
             .toList(),
       );
-    } on AppExceptions catch (exception) {
-      return Left(Failure(message: exception.toString()));
+    } on RemoteException catch (exception) {
+      return Left(Failure(message: exception.message));
     }
   }
 }

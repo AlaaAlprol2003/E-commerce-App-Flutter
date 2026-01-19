@@ -43,14 +43,6 @@ class _ProductScreenState extends State<ProductScreen> {
           );
         } else if (state is AddToCartSuccess) {
           UiUtils.hideLoadingDialog(context);
-          UiUtils.showToastNotificationBar(
-            context,
-            "Product Added Successfully",
-            ColorsManager.blue,
-            Colors.green,
-            Icons.check_circle,
-          );
-          Navigator.pushNamed(context, Routes.cartScreen);
         }
       },
       child: BlocListener<WishlistCubit, WishlistState>(

@@ -1,4 +1,3 @@
-
 import 'package:e_commerce/features/cart/domain/entities/cart_entity.dart';
 import 'package:e_commerce/features/cart/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:e_commerce/features/cart/domain/use_cases/clear_cart_use_case.dart';
@@ -91,7 +90,6 @@ class CartCubit extends Cubit<CartState> {
     final result = await clearCartUseCase();
     result.fold(
       ifLeft: (failure) {
-      
         emit(ClearcartFailure(message: failure.message));
       },
       ifRight: (cart) {
@@ -99,6 +97,10 @@ class CartCubit extends Cubit<CartState> {
         emit(ClearCartSuccess());
       },
     );
+  }
+
+  void resetState() {
+    emit(Cartinitial());
   }
 }
 

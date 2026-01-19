@@ -6,6 +6,7 @@ import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
+import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/ad_model/ad_model.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/widgets/brand_item.dart';
@@ -26,11 +27,7 @@ class HomeTap extends StatefulWidget {
 class _HomeTapState extends State<HomeTap> {
   int selectedIndex = 0;
 
-  List<String> offers = [
-    (ImageAssets.offer),
-    (ImageAssets.offer),
-    (ImageAssets.offer),
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +53,8 @@ class _HomeTapState extends State<HomeTap> {
                   setState(() {});
                 },
               ),
-              items: offers
-                  .map((offer) => CustomAddWidget(selectedIndex: selectedIndex))
+              items: AdModel.ads
+                  .map((ad) => CustomAddWidget(selectedIndex: selectedIndex))
                   .toList(),
             ),
             SizedBox(height: 24.h),

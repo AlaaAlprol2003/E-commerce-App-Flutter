@@ -17,8 +17,8 @@ class BrandsRepositoryImpl implements BrandsRepository {
       return Right(
         response.brands.map((brand) => brand.toBrandEntity()).toList(),
       );
-    } on AppExceptions catch (exception) {
-      return Left(Failure(message: exception.toString()));
+    } on RemoteException catch (exception) {
+      return Left(Failure(message: exception.message));
     }
   }
 }

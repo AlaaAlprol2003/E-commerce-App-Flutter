@@ -207,11 +207,6 @@ class ProductDetailsScreen extends StatelessWidget {
                               Colors.green,
                               Icons.check_circle,
                             );
-                            Navigator.pushNamed(
-                              context,
-                              Routes.cartScreen,
-                              
-                            );
                           }
                         },
                         child: CustomElevatedButton(
@@ -244,4 +239,3 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 }
-

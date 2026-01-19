@@ -17,6 +17,7 @@ import 'package:e_commerce/features/products/presentation/cubit/products_cubit.d
 import 'package:e_commerce/features/products/presentation/product_screen.dart';
 import 'package:e_commerce/features/products_by_brand_screen.dart/presentation/cubit/products_by_brand_cubit.dart';
 import 'package:e_commerce/features/products_by_brand_screen.dart/presentation/products_by_brand_screen.dart';
+import 'package:e_commerce/features/splash/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,6 +75,11 @@ abstract class GetRoute {
               child: ProductsByBrandScreen(brand: brandEntity),
             ),
           );
+        }
+
+      case Routes.splashScreen:
+        {
+          return CupertinoPageRoute(builder: (context) => SplashScreen());
         }
     }
   }

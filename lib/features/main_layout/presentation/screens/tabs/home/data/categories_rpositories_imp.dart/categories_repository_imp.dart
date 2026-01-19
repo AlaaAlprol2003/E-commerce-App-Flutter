@@ -24,9 +24,9 @@ class CategoriesRepositoryImp implements CategoriesRepository {
             )
             .toList(),
       );
-    } on AppExceptions catch (exception) {
+    } on RemoteException catch (exception) {
       print(exception.toString());
-      return Left(Failure(message: exception.toString()));
+      return Left(Failure(message: exception.message));
     }
   }
 }

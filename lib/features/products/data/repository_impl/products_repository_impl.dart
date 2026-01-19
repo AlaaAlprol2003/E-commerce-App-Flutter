@@ -17,7 +17,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Right(
         response.products.map((product) => product.toProductEntity()).toList(),
       );
-    } on AppExceptions catch (exception) {
+    } on RemoteException catch (exception) {
       return Left(Failure(message: exception.toString()));
     }
   }

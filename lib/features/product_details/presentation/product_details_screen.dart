@@ -200,13 +200,6 @@ class ProductDetailsScreen extends StatelessWidget {
                             );
                           } else if (state is AddToCartSuccess) {
                             UiUtils.hideLoadingDialog(context);
-                            UiUtils.showToastNotificationBar(
-                              context,
-                              "Product Added to Cart Successfully",
-                              Colors.white,
-                              Colors.green,
-                              Icons.check_circle,
-                            );
                           }
                         },
                         child: CustomElevatedButton(

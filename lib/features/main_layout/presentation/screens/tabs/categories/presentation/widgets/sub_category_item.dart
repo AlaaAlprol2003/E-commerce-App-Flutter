@@ -16,7 +16,7 @@ class SubCategoryItem extends StatelessWidget {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r),
       border: Border.all(color: ColorsManager.lightBlue,width: 2.w),
       color: Color(0xFF2C4C64) ,
-      boxShadow: [BoxShadow(color: ColorsManager.black,blurRadius: 4,offset: Offset(15, 15)),],
+      boxShadow: [BoxShadow(color: ColorsManager.grey,blurRadius: 4,offset: Offset(8, 8)),],
       
       ),
       child: Text(subcategoryEntity.name,textAlign: TextAlign.center,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,color: ColorsManager.offwhite ),)

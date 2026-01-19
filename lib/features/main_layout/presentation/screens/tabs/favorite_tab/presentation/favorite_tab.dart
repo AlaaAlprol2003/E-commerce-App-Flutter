@@ -75,7 +75,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
                   UiUtils.hideLoadingDialog(context);
                   UiUtils.showToastNotificationBar(
                     context,
-                    "Product removed successfully to your wishlist",
+                    "Product removed successfully from your wishlist",
                     ColorsManager.white,
                     Colors.green,
                     Icons.supervised_user_circle_sharp,
@@ -102,13 +102,24 @@ class _FavoriteTabState extends State<FavoriteTab> {
                 } else if (state is GetWishlistSuccess) {
                   var products = state.favoriteProducts;
                   return Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10),
-                      itemBuilder: (context, index) =>
-                          FavoriteItem(wishlistItem: products[index]),
-                      itemCount: products.length,
-                    ),
+                    child: products.isEmpty
+                        ? Center(
+                            child: Text(
+                              "No products added",
+                              style: TextStyle(
+                                color: ColorsManager.darkBlue,
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : ListView.separated(
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: 10),
+                            itemBuilder: (context, index) =>
+                                FavoriteItem(wishlistItem: products[index]),
+                            itemCount: products.length,
+                          ),
                   );
                 }
                 return SizedBox();

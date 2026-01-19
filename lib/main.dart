@@ -49,7 +49,7 @@ class ECommerce extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: Routes.mainLayout,
+          initialRoute: Routes.splashScreen,
           onGenerateRoute: GetRoute.router,
           theme: ThemeManager.light,
           darkTheme: ThemeManager.dark,

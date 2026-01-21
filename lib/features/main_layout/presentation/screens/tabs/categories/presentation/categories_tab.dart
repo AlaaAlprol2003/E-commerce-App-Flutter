@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/cubit/sub_categories_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/categories/presentation/widgets/sub_category_item.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/categories_cubit.dart';
@@ -42,7 +43,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                   BlocBuilder<CategoriesCubit, CategoriesState>(
                     builder: (context, state) {
                       if (state is CategoriesLoading) {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(child: LottieAnimation.loading1());
                       } else if (state is CategoriesError) {
                         return Center(
                           child: Text(
@@ -108,7 +109,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                     builder: (context, state) {
                       if (state is SubCategoriesLoading) {
                         return Expanded(
-                          child: Center(child: CircularProgressIndicator()),
+                          child: Center(child: LottieAnimation.loading1()),
                         );
                       } else if (state is SubCategoriesfailure) {
                         return Expanded(

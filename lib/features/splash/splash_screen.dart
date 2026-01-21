@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:e_commerce/core/resources/assets_manager.dart';
+
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/custom_animated_text2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 15), () {
       Navigator.pushReplacementNamed(context, Routes.login);
     });
   }
@@ -41,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Image.asset(ImageAssets.routeLogo),
+        child: CustomAnimatedText.scaleAnimatedText(text: "Route", fontSize: 100.sp, fontWeight: FontWeight.w900,color: ColorsManager.blue),
       ),
     );
   }

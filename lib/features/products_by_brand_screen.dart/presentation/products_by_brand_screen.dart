@@ -2,6 +2,7 @@ import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/brand_entity.dart';
 import 'package:e_commerce/features/products/presentation/widgets/product_item.dart';
@@ -19,7 +20,11 @@ class ProductsByBrandScreen extends StatelessWidget {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
         if (state is AddToCartLoading) {
-          UiUtils.showLoadingDialog(context);
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => Center(child: LottieAnimation.loading()),
+          );
         } else if (state is AddToCartFailure) {
           UiUtils.hideLoadingDialog(context);
           UiUtils.showToastNotificationBar(

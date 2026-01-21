@@ -1,7 +1,8 @@
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
-import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/custom_animated_text2.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/products/presentation/cubit/products_cubit.dart';
@@ -31,7 +32,11 @@ class _ProductScreenState extends State<ProductScreen> {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
         if (state is AddToCartLoading) {
-          UiUtils.showLoadingDialog(context);
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => Center(child: LottieAnimation.loading1()),
+          );
         } else if (state is AddToCartFailure) {
           UiUtils.hideLoadingDialog(context);
           UiUtils.showToastNotificationBar(
@@ -56,7 +61,11 @@ class _ProductScreenState extends State<ProductScreen> {
         listener: (context, state) {
           if (state is AddToWishlistLoading ||
               state is DeleteProductFromWishlistLoading) {
-            UiUtils.showLoadingDialog(context);
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => Center(child: LottieAnimation.loading()),
+            );
           } else if (state is AddToWishlistFailure) {
             UiUtils.hideLoadingDialog(context);
             UiUtils.showToastNotificationBar(
@@ -102,13 +111,9 @@ class _ProductScreenState extends State<ProductScreen> {
           backgroundColor: ColorsManager.white,
           appBar: AppBar(
             backgroundColor: ColorsManager.lightBlue,
-            title: Text(widget.categoryEntity.name),
+            title: CustomAnimatedText.wavyAnimatedText(text: widget.categoryEntity.name, fontSize: 20.sp, fontWeight: FontWeight.w700),
             centerTitle: true,
-            titleTextStyle: GoogleFonts.poppins(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              color: ColorsManager.offwhite,
-            ),
+            
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -123,7 +128,7 @@ class _ProductScreenState extends State<ProductScreen> {
           body: BlocBuilder<ProductsCubit, ProductsState>(
             builder: (context, state) {
               if (state is ProductsLoading) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: LottieAnimation.loading1());
               } else if (state is ProductsFailure) {
                 return Center(child: Text(state.message));
               } else if (state is ProductsSuccess) {

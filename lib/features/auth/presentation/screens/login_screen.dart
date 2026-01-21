@@ -1,10 +1,13 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
 import 'package:e_commerce/core/resources/validators.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/custom_animated_text2.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/auth/data/models/login_request.dart';
 import 'package:e_commerce/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text_button.dart';
@@ -58,21 +61,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 70.h),
-                Text(
-                  "Welcome Back To Route",
-                  style: GoogleFonts.poppins(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                    color: ColorsManager.white,
-                  ),
+                AnimatedTextKit(
+                  isRepeatingAnimation: true,
+                  repeatForever: true,
+
+                  animatedTexts: [
+                    ColorizeAnimatedText(
+                      'Welcome Back To Route',
+                      speed: Duration(seconds: 1),
+
+                      textStyle: GoogleFonts.poppins(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w600,
+                        color: ColorsManager.white,
+                      ),
+                      colors: [
+                        ColorsManager.white,
+                        ColorsManager.lightBlue,
+                        Colors.yellow,
+                        ColorsManager.darkBlue,
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  "Please sign in with your mail",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                    color: ColorsManager.white,
-                  ),
+                CustomAnimatedText.scrambleAnimatedText(
+                  text: "Please sign in with your mail",
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w300,
                 ),
                 SizedBox(height: 40.h),
                 LabelTextWidget(text: "E-mail"),
@@ -112,7 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is LoginLoading) {
-                      UiUtils.showLoadingDialog(context);
+                      ///UiUtils.showLoadingDialog(context);
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => Center(
+                          child: LottieAnimation.loading())
+                      );
                     } else if (state is LoginFailure) {
                       UiUtils.hideLoadingDialog(context);
                       UiUtils.showToastNotificationBar(
@@ -161,13 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Don't Have Account?",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                        color: ColorsManager.white,
-                      ),
+                    CustomAnimatedText.flickerAnimatedText(
+                      text: "Don't Have Account?",
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                     CustomTextButton(
                       text: "Create Account",

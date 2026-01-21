@@ -5,6 +5,7 @@ import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/domain/entities/category_entity.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/ad_model/ad_model.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/home/presentation/cubit/brands_cubit.dart';
@@ -63,7 +64,7 @@ class _HomeTapState extends State<HomeTap> {
             BlocBuilder<CategoriesCubit, CategoriesState>(
               builder: (context, state) {
                 if (state is CategoriesLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LottieAnimation.loading1());
                 } else if (state is CategoriesError) {
                   return Center(
                     child: Text(
@@ -113,7 +114,7 @@ class _HomeTapState extends State<HomeTap> {
             BlocBuilder<BrandsCubit, BrandsState>(
               builder: (context, state) {
                 if (state is BrandsLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LottieAnimation.loading1());
                 } else if (state is BrandsFailure) {
                   return Center(
                     child: Text(

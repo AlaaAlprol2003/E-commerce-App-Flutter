@@ -3,11 +3,13 @@ import 'package:e_commerce/core/resources/assets_manager.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
 import 'package:e_commerce/core/widgets/custom_search_section.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/cubit/wishlist_cubit.dart';
 import 'package:e_commerce/features/main_layout/presentation/screens/tabs/favorite_tab/presentation/widgets/favorite_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FavoriteTab extends StatefulWidget {
   const FavoriteTab({super.key});
@@ -30,7 +32,11 @@ class _FavoriteTabState extends State<FavoriteTab> {
       child: BlocListener<CartCubit, CartState>(
         listener: (context, state) {
           if (state is AddToCartLoading) {
-            UiUtils.showLoadingDialog(context);
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => Center(child: LottieAnimation.loading()),
+            );
           } else if (state is AddToCartFailure) {
             UiUtils.hideLoadingDialog(context);
             UiUtils.showToastNotificationBar(
@@ -61,7 +67,12 @@ class _FavoriteTabState extends State<FavoriteTab> {
             BlocConsumer<WishlistCubit, WishlistState>(
               listener: (context, state) {
                 if (state is DeleteProductFromWishlistLoading) {
-                  UiUtils.showLoadingDialog(context);
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (context) =>
+                        Center(child: LottieAnimation.loading()),
+                  );
                 } else if (state is DeleteProductFromWishlistFailure) {
                   UiUtils.hideLoadingDialog(context);
                   UiUtils.showToastNotificationBar(
@@ -85,7 +96,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
               builder: (context, state) {
                 if (state is GetWishlistLoading) {
                   return Expanded(
-                    child: Center(child: CircularProgressIndicator()),
+                    child: Center(child: LottieAnimation.loading1()),
                   );
                 } else if (state is GetWishlistFailure) {
                   return Expanded(
@@ -104,13 +115,18 @@ class _FavoriteTabState extends State<FavoriteTab> {
                   return Expanded(
                     child: products.isEmpty
                         ? Center(
-                            child: Text(
-                              "No products added",
-                              style: TextStyle(
-                                color: ColorsManager.darkBlue,
-                                fontSize: 25.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Column(
+                              children: [
+                                LottieAnimation.emptyBox(),
+                                Text(
+                                  "Empty",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorsManager.darkBlue,
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         : ListView.separated(

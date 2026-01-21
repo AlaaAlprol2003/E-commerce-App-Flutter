@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
-import 'package:e_commerce/core/routes_manager/routes.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/carousel_item.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/custom_app_bar.dart';
@@ -188,7 +187,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       BlocListener<CartCubit, CartState>(
                         listener: (context, state) {
                           if (state is AddToCartLoading) {
-                            UiUtils.showLoadingDialog(context);
+                            // UiUtils.showLoadingDialog(context);
                           } else if (state is AddToCartFailure) {
                             UiUtils.hideLoadingDialog(context);
                             UiUtils.showToastNotificationBar(

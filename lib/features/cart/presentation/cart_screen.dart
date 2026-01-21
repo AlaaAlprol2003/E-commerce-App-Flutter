@@ -2,6 +2,7 @@ import 'package:e_commerce/core/presentation/cart_cubit.dart';
 import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/features/cart/presentation/widgets/cart_item.dart';
 import 'package:e_commerce/features/product_details/presentation/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
-  
+
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -41,7 +42,11 @@ class _CartScreenState extends State<CartScreen> {
           if (state is UpdateCartProductQuantityLoading ||
               state is DeleteProductFromCartLoading ||
               state is ClearCartLoading) {
-            UiUtils.showLoadingDialog(context);
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => Center(child: LottieAnimation.loading1()),
+            );
           } else if (state is UpdateCartProductQuantityFailure) {
             UiUtils.hideLoadingDialog(context);
             UiUtils.showToastNotificationBar(
@@ -100,7 +105,7 @@ class _CartScreenState extends State<CartScreen> {
         },
         builder: (context, state) {
           if (state is GetCartLoading && cartCubit.cart == null) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LottieAnimation.loading1());
           } else if (state is GetCartFailure && cartCubit.cart == null) {
             return Center(
               child: Text(
@@ -113,7 +118,9 @@ class _CartScreenState extends State<CartScreen> {
           if (cartCubit.cart != null) {
             var cart = cartCubit.cart!;
 
-            return cart.cartItems.isEmpty ? Center(child: Text("Your Cart Is Empty",style: GoogleFonts.poppins(fontSize: 18.sp,fontWeight: FontWeight.w500,color: ColorsManager.darkBlue),),) : Column(
+            return cart.cartItems.isEmpty
+                ? Center(child: LottieAnimation.emptyBox())
+                : Column(
                     children: [
                       Expanded(
                         child: ListView.separated(

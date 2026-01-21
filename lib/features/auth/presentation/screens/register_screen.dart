@@ -5,8 +5,10 @@ import 'package:e_commerce/core/resources/colors_manager.dart';
 import 'package:e_commerce/core/resources/ui_utils.dart';
 import 'package:e_commerce/core/resources/validators.dart';
 import 'package:e_commerce/core/routes_manager/routes.dart';
+import 'package:e_commerce/core/widgets/custom_animated_text2.dart';
 import 'package:e_commerce/core/widgets/custom_elevated_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_form_field.dart';
+import 'package:e_commerce/core/widgets/lottie_animation.dart';
 import 'package:e_commerce/core/widgets/user_data_shared_prefs.dart';
 import 'package:e_commerce/features/auth/data/models/register_request.dart';
 import 'package:e_commerce/features/auth/presentation/cubit/auth_cubit.dart';
@@ -15,7 +17,6 @@ import 'package:e_commerce/features/auth/presentation/widgets/label_text_widget.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -100,13 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Already Have Account?",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                        color: ColorsManager.white,
-                      ),
+                    CustomAnimatedText.flickerAnimatedText(
+                      text: "Already Have Account?",
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                     CustomTextButton(
                       text: "Login",
@@ -120,7 +118,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is RegisterLoading) {
-                      UiUtils.showLoadingDialog(context);
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) =>
+                            Center(child: LottieAnimation.loading()),
+                      );
                     } else if (state is RegisterFailure) {
                       UiUtils.hideLoadingDialog(context);
                       UiUtils.showToastNotificationBar(
